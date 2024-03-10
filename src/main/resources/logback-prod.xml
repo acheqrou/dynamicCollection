@@ -1,0 +1,28 @@
+<included>
+
+    <property name="LOG_FILE" value="C:/logs/logs.log"/>
+
+    <conversionRule conversionWord="escapeHtmlXml" converterClass="com.first.EscapeUserInputConverter" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSSD} [%thread] %-5level %logger{36} -- %escapeHtmlXml %n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Define the file appender -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <!-- Specify the file path -->
+        <file>C:/logs/logs.txt</file>
+        <!-- Define the layout for log messages -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %escapeHtmlXml%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE"/>
+
+    </root>
+</included>

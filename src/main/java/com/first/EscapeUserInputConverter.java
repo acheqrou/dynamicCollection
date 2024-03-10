@@ -10,6 +10,15 @@ public class EscapeUserInputConverter extends MessageConverter {
         String userInput = event.getFormattedMessage();
         // Perform escaping logic here
        // return StringEscapeUtils.escapeHtml4(userInput);
-        return StringEscapeUtils.escapeXml11(userInput);
+//        System.out.println("...................... start ...................");
+//        System.out.println(event);
+//        System.out.println(event.getLevel());
+//        System.out.println(event.getLoggerName());
+//        System.out.println(Arrays.toString(event.getArgumentArray()) );
+//        System.out.println("Message :");
+//        System.out.println(event.getMessage());
+//        System.out.println(userInput);
+//        System.out.println("...................... ends ...................");
+        return StringEscapeUtils.escapeHtml4(userInput);
     }
 }

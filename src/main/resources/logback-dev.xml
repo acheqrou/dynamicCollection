@@ -1,0 +1,13 @@
+<included>
+    <conversionRule conversionWord="escapeHtmlXml" converterClass="com.first.EscapeUserInputConverter"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSSD} [%thread] %-5level %logger{36} || %escapeHtmlXml %n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</included>

@@ -61,11 +61,8 @@
 			<artifactId>commons-text</artifactId>
 			<version>1.11.0</version> <!-- Use the latest version -->
 		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<version>1.4.12</version>
-		</dependency>
+
+		<!-- Logback Access for HTTP request logging (optional) -->
 
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
