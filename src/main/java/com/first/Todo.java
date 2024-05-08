@@ -10,7 +10,7 @@ public class Todo {
     private String title;
     private boolean completed;
 
-    // Constructors, getters, and setters
+    // Constructors, getters, and setters.
     public Todo() {
     }
 
@@ -23,22 +23,21 @@ public class Todo {
         return id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-// Standard getters and setters
-
-
     public void setId(String id) {
         this.id = id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+// Standard getters and setters
+
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public boolean isCompleted() {
+        return completed;
     }
 
     public void setCompleted(boolean completed) {

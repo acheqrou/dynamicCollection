@@ -4,13 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.data.mongodb.core.query.Query;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 
 @RestController
@@ -21,15 +19,14 @@ public class TodoController {
 
     private final MongoTemplate mongoTemplate;
 
-private dynamicCollectionProvider provider;
+    private final dynamicCollectionProvider provider;
     private boolean completed;
 
     @Autowired
     public TodoController(TodoService todoService, MongoTemplate mongoTemplate, dynamicCollectionProvider provider) {
         this.todoService = todoService;
         this.mongoTemplate = mongoTemplate;
-        this.provider=provider;
-
+        this.provider = provider;
 
     }
 
@@ -42,7 +39,6 @@ private dynamicCollectionProvider provider;
 
     @GetMapping("total")
     public int getAllTodosT() {
-
         return todoService.findAll().size();
     }
 
@@ -51,21 +47,20 @@ private dynamicCollectionProvider provider;
         List<Todo> todos = mongoTemplate.find(query, Todo.class, collectionName);
         return todos;
     }
+
     @PostMapping
     //@SanitizeInput
-    public Todo addTodo(@RequestBody Todo todo, @RequestParam("name") String name ) {
+    public Todo addTodo(@RequestBody Todo todo, @RequestParam("name") String name) {
         logger.info("This is an informational message :: {}", name);
         return todoService.save(todo);
     }
 
 
-
-
     @PutMapping("/collection-name")
     public void setCollectionName(@RequestParam String name) {
         long uu = Instant.now().toEpochMilli();
-        System.out.println("epoch           : "+uu);
-        String newCollectionName = "todos"+uu;
+        System.out.println("epoch           : " + uu);
+        String newCollectionName = "todos" + uu;
         Todo todoo = new Todo();
         String lagacyName = this.mongoTemplate.getCollectionName(todoo.getClass());
 
@@ -73,24 +68,23 @@ private dynamicCollectionProvider provider;
         var todos = getAllTodos();
 
         System.out.println("Inserting data in progress ...");
-    try {
+        try {
 
-        this.mongoTemplate.insert(todos, newCollectionName);
+            this.mongoTemplate.insert(todos, newCollectionName);
 
-        System.out.println("Inserting data done !!");
+            System.out.println("Inserting data done !!");
 
-        System.out.println("call set collection name ....");
-       // this.provider.setCollectionNames(newCollectionName);
-        System.out.println("drop legacy collection ...........");
-        //this.mongoTemplate.dropCollection(lagacyName);
-        System.out.println("dropped !!!!!!");
+            System.out.println("call set collection name ....");
+            // this.provider.setCollectionNames(newCollectionName);
+            System.out.println("drop legacy collection ...........");
+            //this.mongoTemplate.dropCollection(lagacyName);
+            System.out.println("dropped !!!!!!");
 
-    }catch (Exception e){
-        System.out.println(" Error Inserting ........");
-        this.mongoTemplate.dropCollection(newCollectionName);
+        } catch (Exception e) {
+            System.out.println(" Error Inserting ........");
+            this.mongoTemplate.dropCollection(newCollectionName);
 
-    }
-
+        }
 
 
     }
