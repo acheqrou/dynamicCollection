@@ -66,32 +66,23 @@ private dynamicCollectionProvider provider;
         long uu = Instant.now().toEpochMilli();
         System.out.println("epoch           : "+uu);
         String newCollectionName = "todos"+uu;
-        String lagacyName = this.provider.getCollectionName();
+        Todo todoo = new Todo();
+        String lagacyName = this.mongoTemplate.getCollectionName(todoo.getClass());
 
         this.todoService.createNewCollection(newCollectionName);
         var todos = getAllTodos();
-        System.out.println("Inserting data in progress ...");
-        this.mongoTemplate.insert(todos, newCollectionName);
-        System.out.println("Inserting data done !!");
 
-        List<Todo> todoss = new ArrayList<>();
-        for(int i=0; i<750000;i++){
-            var todo = new Todo();
-            boolean completed = i % 2==0;
-            todo.setCompleted(completed);
-            todo.setId("ks!"+i);
-            todo.setTitle("ks!"+i);
-            todoss.add(todo);
-        }
         System.out.println("Inserting data in progress ...");
     try {
-        this.mongoTemplate.insert(todoss, newCollectionName);
+
+        this.mongoTemplate.insert(todos, newCollectionName);
+
         System.out.println("Inserting data done !!");
 
         System.out.println("call set collection name ....");
-        this.provider.setCollectionNames(newCollectionName);
+       // this.provider.setCollectionNames(newCollectionName);
         System.out.println("drop legacy collection ...........");
-        this.mongoTemplate.dropCollection(lagacyName);
+        //this.mongoTemplate.dropCollection(lagacyName);
         System.out.println("dropped !!!!!!");
 
     }catch (Exception e){

@@ -3,7 +3,7 @@ package com.first;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "#{@configRepositoryCustom.getCollectionName()}")
+@Document(collection = "#{@configRepositoryCustom.getCollectionName('todo')}")
 public class Todo {
     @Id
     private String id;
