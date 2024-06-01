@@ -1,8 +1,9 @@
 package com.first;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TodoRepository extends MongoRepository<Todo, String> {
+public interface ReviewRepository extends MongoRepository<Review, ObjectId> {
 }
